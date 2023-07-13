@@ -105,7 +105,7 @@ return {
       init = function()
         require("lazyvim.util").on_attach(function(_, buffer)
           -- stylua: ignore
-          vim.keymap.set( "n", "<leader>co", "TypescriptOrganizeImports", { buffer = buffer, desc = "Organize Imports" })
+          vim.keymap.set("n", "<leader>co", "TypescriptOrganizeImports", { buffer = buffer, desc = "Organize Imports" })
           vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
         end)
       end,
@@ -216,9 +216,14 @@ return {
   -- first: disable default <tab> and <s-tab> behavior in LuaSnip
   {
     "L3MON4D3/LuaSnip",
-    keys = function()
-      return {}
-    end,
+    opts = {
+      history = true,
+    },
+    keys = {
+      -- Disable tab and s-tab keys
+      { "<Tab>", false },
+      { "<S-Tab>", false },
+    },
   },
   -- then: setup supertab in cmp
   {
@@ -261,6 +266,13 @@ return {
           end
         end, { "i", "s" }),
       })
+    end,
+  },
+  -- My comment plugins
+  {
+    "numToStr/Comment.nvim",
+    config = function()
+      require("Comment").setup()
     end,
   },
 }
